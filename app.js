@@ -13,7 +13,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/",function(req,res){
-    res.render("home")
+    Post.find({},function(err,posts){
+        if(!err){
+            res.render("home"),{
+                posts:posts
+            }
+        }
+    })
 });
 
+app.get("/compose",function(req,res){
+    res.render("compose");
+})
 app.listen(3000);

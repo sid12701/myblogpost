@@ -1,3 +1,5 @@
+<%- include('partials/header') %>
+
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,21 +16,31 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login">Login</a>
+            </li>
           </ul>
         </div>
       </nav>
 
       <main>
         <div class="row">
-            <h1>This is my daily journal</h1>
-        </div>
-        <div class="row">
-            <p>post 1</p>
-        </div>
-        <div class="row">
-            <p>post 2</p>
-        </div>
-        <div class="row">
-            <p>post 3</p>
+          <% for(let i = 0; i < posts.length; i++) { %>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><%= posts[i].title %></h5>
+                  <p class="card-text"><%= posts[i].content %></p>
+                  <a href="/posts/<%= posts[i]._id %>" class="btn btn-primary">Read more</a>
+                  <a href="#" class="btn btn-primary">Delete</a>
+                </div>
+              </div>
+            </div>
+          <% } %>
         </div>
       </main>
+
+        <%- include('partials/footer') %>

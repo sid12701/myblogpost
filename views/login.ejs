@@ -1,0 +1,15 @@
+<%- include("partials/header"); -%>
+<body>
+    <h1>Welcome! Please login to continue.</h1>
+    <form method="post" action="/login">
+      <label>Username:</label>
+      <input type="email" name="email" placeholder="Enter your email">
+      <br>
+      <label>Password:</label>
+      <input type="password" name="password" placeholder="Enter your password">
+      <br>
+      <input type="submit" value="Login">
+    </form>
+  </body>
+
+<%- include("partials/footer"); -%>

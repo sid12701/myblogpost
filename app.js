@@ -3,10 +3,29 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const Post = require('./models/post');
-const app = express();
 const path = require("path");
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+
+
+const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
+
+app.use(session({
+    secret:"one",
+    saveUninitialized:false,
+    resave:false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 mongoose.connect("mongodb://localhost:27017/myblogDB",{useNewUrlParser:true});
 
@@ -15,10 +34,12 @@ const userSchema = new mongoose.Schema({
     password:String
 });
 
+userSchema.plugin(passportLocalMongoose);
+
 const User = mongoose.model('User', userSchema);
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/",function(req,res){
@@ -46,6 +67,37 @@ app.get("/posts/:postId",function(req,res){
     });
 });
 
+app.get("/logout",function(req,res){
+    res.redirect("/");
+})
+
+app.get("/login",function(req,res){
+    req.logout();
+    res.render("login");
+});
+
+app.get("/register",function(req,res){
+    res.render("register");
+});
+
+app.get("/compose",function(req,res){
+    res.render("compose");
+});
+
+app.get("/home-auth",function(req,res){
+    if(req.isAuthenticated()){
+        Post.find({},function(err,posts){
+            if(!err){
+                res.render("home-auth",{
+                    posts:posts
+                });
+            }
+        })
+    }
+    else{
+        res.redirect("/login");
+    }
+});
 
 app.post("/compose",function(req,res){
     const post = new Post({
@@ -56,54 +108,36 @@ app.post("/compose",function(req,res){
     res.redirect("/")
 })
 
-app.get("/login",function(req,res){
-    res.render("login");
-});
-
-app.get("/register",function(req,res){
-    res.render("register");
-});
-
 app.post("/register",function(req,res){
-    const newUser = new User({
-        email:req.body.email,
-        password:req.body.password
-    });
-    newUser.save(function(err){
+    User.register({username:req.body.email},req.body.password,function(err,user){
         if(err){
             console.log(err);
+            res.redirect("/register");
         }
         else{
-            Post.find({},function(err,posts){
-                if(!err){
-                    res.render("home",{
-                        posts:posts
-                    });
-                }
-            })
+            passport.authenticate("local")(req,res,function(){
+                res.redirect("/home-auth");
+            });
         }
     });
 });
 
 app.post("/login",function(req,res){
-    User.findOne({email:req.body.email},function(err,user){
+    const user = new User({
+        username: req.body.email,
+        password:req.body.password
+    });
+    req.login(user,function(err){
         if(err){
             console.log(err);
         }
         else{
-            if(user){
-                if(user.password===req.body.password){
-                    Post.find({},function(err,posts){
-                        if(!err){
-                            res.render("home",{
-                                posts:posts
-                            });
-                        }
-                    })
-                }
+            passport.authenticate("local")(req,res,function(){
+                res.redirect("/home-auth");
+            });
         }
-    }
-    })
+    });
+
 });
 
 

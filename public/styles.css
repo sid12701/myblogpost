@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-image: linear-gradient(to right,#868F96 ,#596164);
   }
-  
+
   header {
     padding: 30px 0;
   }
@@ -14,6 +14,8 @@ body {
   
   nav {
     margin-bottom: 30px;
+    background-image: linear-gradient(to right,#868F96 ,#596164);
+
   }
   
   main {
@@ -36,9 +38,10 @@ body {
   }
   
   footer {
-    background-color: #333;
+    background-image: linear-gradient(to right,#868F96 ,#596164);
     color: #fff;
     padding: 20px;
+    margin-top: 350px;
   }
   
   p {
@@ -46,6 +49,10 @@ body {
     margin: 0;
   }
 
-  #comp{
-    display:hidden;
+  .content{
+    background-image: linear-gradient(to right,#868F96 ,#596164);
+  }
+
+  .title{
+    background-image: linear-gradient(to right,#868F96 ,#596164);
   }

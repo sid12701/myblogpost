@@ -27,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect("mongodb://localhost:27017/myblogDB",{useNewUrlParser:true});
+mongoose.connect("mongodb://0.0.0.0:27017/myblogDB",{useNewUrlParser:true});
 
 const userSchema = new mongoose.Schema({
     email:String,
@@ -67,12 +67,23 @@ app.get("/posts/:postId",function(req,res){
     });
 });
 
+app.get("/posts/:postsId/delete",function(req,res){
+    Post.findOneAndDelete({_id:req.params.postsId},function(err){
+        if(!err){
+            res.redirect("/home-auth");
+        }
+    })
+});
+
+
 app.get("/logout",function(req,res){
+    req.logout(function(err){
+        console.log(err);
+    });
     res.redirect("/");
 })
 
 app.get("/login",function(req,res){
-    req.logout();
     res.render("login");
 });
 
@@ -105,7 +116,7 @@ app.post("/compose",function(req,res){
         content:req.body.content
     });
     post.save();
-    res.redirect("/")
+    res.redirect("/home-auth");
 })
 
 app.post("/register",function(req,res){
@@ -144,4 +155,4 @@ app.post("/login",function(req,res){
 app.get("/compose",function(req,res){
     res.render("compose");
 })
-app.listen(3000);
+app.listen(4000);

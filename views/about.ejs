@@ -1,0 +1,43 @@
+<%- include("partials/header"); -%>
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <a class="navbar-brand text-warning" href="#">Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/home-auth">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link compose text-primary" id="comp" href="/compose">Compose</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+<h1 class="text-center text-white">Welcome to our simple blog post backend project!</h1>
+<p class="text-center text-white">Our goal with this project is to create a simple and easy-to-use backend for a blog post system.
+     The system will allow users to create, edit, and delete blog posts, as well as manage admin account.</p>
+<p class="text-center text-white">    
+    We have designed this project with simplicity and usability in mind. Our backend is built on top of popular web frameworks such as 
+    Node js and Express Js, and uses a non-relational database to store the data. We have also implemented basic authentication and
+     authorization mechanisms to ensure that only authorized users can access the system.Only the admin can add , edit and  delete the posts</p>
+<p class="text-center text-white">We hope that our simple blog post backend project will be useful for anyone looking to build 
+    a basic blogging system. Please feel free to contribute to the project, and if you have any feedback or suggestions,
+     don't hesitate to contact us.
+
+    Thank you for using our simple blog post backend project!</p>
+    
+<%- include("partials/footer"); -%>

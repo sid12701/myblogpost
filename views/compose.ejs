@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/home-auth">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link compose" id="comp" href="/compose">Compose</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+<form action="/compose" method="POST">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control title" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea class="form-control content" id="content" name="content" rows="5" required></textarea>
+    </div>
+    <input type="submit" value="Post" class="btn btn-primary">
+</form>
+
+<%- include('partials/footer') %>

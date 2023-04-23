@@ -1,0 +1,17 @@
+<%- include("partials/header"); -%>
+<body>
+  <div class="container text-center mt-5">
+    <h1 class="text-center text-white">Welcome <br/>Please login to continue.</h1>
+    <form method="post" action="/login">
+      <label class="text-white mt-4 px-3">Username:</label>
+      <input class="rounded mt-4 " type="email" name="email" placeholder="Enter your email">
+      <br>
+      <label class="text-white mt-4 px-3">Password:</label>
+      <input class="rounded mt-4 " type="password" name="password" placeholder="Enter your password">
+      <br>
+      <input class="btn btn-primary mt-4" type="submit" value="Login">
+    </form>
+  </div>
+  </body>
+
+<%- include("partials/footer"); -%>
